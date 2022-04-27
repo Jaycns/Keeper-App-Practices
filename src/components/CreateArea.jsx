@@ -1,38 +1,35 @@
 import React, { useState } from "react";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
 import { Zoom } from "@mui/material";
-import HighlightIcon from '@mui/icons-material/Highlight';
-
 
 function CreateArea(props) {
   const [note, setNote] = useState({
     title: "",
-    content: ""
+    content: "",
   });
 
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setNote(prevNote => {
+    setNote((prevNote) => {
       return {
         ...prevNote,
-        [name]: value
+        [name]: value,
       };
     });
   }
 
-  const [isExpanded,setIsExpanded]= useState(false)
-  function expanded(){
-    setIsExpanded(true)
+  const [isExpanded, setIsExpanded] = useState(false);
+  function expanded() {
+    setIsExpanded(true);
   }
 
   function submitNote(event) {
     props.onAdd(note);
     setNote({
       title: "",
-      content: ""
+      content: "",
     });
     event.preventDefault();
   }
@@ -40,23 +37,29 @@ function CreateArea(props) {
   return (
     <div>
       <form className="create-note">
-      {isExpanded? <input
-          name="title"
-          onChange={handleChange}
-          value={note.title}
-          placeholder="Title"
-        />  : ""}
+        {isExpanded ? (
+          <input
+            name="title"
+            onChange={handleChange}
+            value={note.title}
+            placeholder="Title"
+          />
+        ) : (
+          ""
+        )}
         <textarea
           name="content"
           onClick={expanded}
           onChange={handleChange}
           value={note.content}
           placeholder="Take a note..."
-          rows={isExpanded? 3:1}
+          rows={isExpanded ? 3 : 1}
         />
-      
+
         <Zoom in={isExpanded}>
-        <Fab onClick={submitNote}><AddIcon/></Fab>
+          <Fab onClick={submitNote}>
+            <AddIcon />
+          </Fab>
         </Zoom>
       </form>
     </div>
